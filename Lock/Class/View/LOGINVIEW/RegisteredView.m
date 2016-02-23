@@ -7,7 +7,6 @@
 //
 
 #import "RegisteredView.h"
-
 @implementation RegisteredView
 
 - (id)initWithFrame:(CGRect)frame{
@@ -30,6 +29,7 @@
         textField.placeholder = @[@"昵称",@"请输入密码",@"请再次输入密码"][i];
         textField.backgroundColor = [UIColor whiteColor];
         textField.borderStyle = UITextBorderStyleRoundedRect;
+        textField.tag = 100 + i;
         [self addSubview:textField];
     }
     
@@ -49,6 +49,13 @@
 - (void)resistereBtn{
     [self endEditing:YES];
     NSLog(@"注册");
+    UITextField *nameField = (UITextField *)[self viewWithTag:100];
+    UITextField *pswField = (UITextField *)[self viewWithTag:101];
+    
+    [NetworkRequest postRegisteredParameters:@{@"userName":@"18389473257",@"userNicName":nameField.text,@"password":pswField.text} withBlock:^(NSDictionary *dict, NSError *error) {
+        
+        NSLog(@"－－－－－－%@",dict);
+    }];
 }
 
 

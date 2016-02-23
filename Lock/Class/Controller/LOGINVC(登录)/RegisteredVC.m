@@ -8,8 +8,8 @@
 
 #import "RegisteredVC.h"
 #import "RegisteredView.h"
-
-@interface RegisteredVC ()
+#import "LogAndRegisteredMode.h"
+@interface RegisteredVC ()<RegisteredViewDelegate>
 
 @end
 
@@ -25,9 +25,12 @@
     
     
     RegisteredView *registeredView = [[RegisteredView alloc]initWithFrame:self.view.bounds];
+    registeredView.delegate = self;
     [self.view addSubview:registeredView];
 }
 
-
+- (void)registeredViewDelegateData:(NSDictionary *)dict{
+    
+}
 
 @end

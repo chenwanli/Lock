@@ -24,7 +24,7 @@
  1、普通网络请求
  2、参数加密请在参数后面加@  @{@"chen@":@"chen"}
  */
-- (void)postParameters:(NSDictionary *)parameters url:(NSString *)url viewController:(UIViewController *)vc withBlock:(void(^)(NSDictionary *dict,NSError *error))block;
+- (void)postParameters:(NSDictionary *)parameters url:(NSString *)url withBlock:(void(^)(NSDictionary *dict,NSError *error))block;
 
 /*
  带图片数据上传

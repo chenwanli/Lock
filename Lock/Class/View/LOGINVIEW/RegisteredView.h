@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RegisteredView : UIView
+@protocol RegisteredViewDelegate <NSObject>
 
+- (void)registeredViewDelegateData:(NSDictionary *)dict;
+
+@end
+
+@interface RegisteredView : UIView
+@property(nonatomic,strong)id <RegisteredViewDelegate> delegate;
 @end

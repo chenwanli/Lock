@@ -108,14 +108,14 @@
 
 
 #pragma mark - 网路请求
-- (void)postParameters:(NSDictionary *)parameters url:(NSString *)url viewController:(UIViewController *)vc withBlock:(void(^)(NSDictionary *dict,NSError *error))block{
-//    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-//    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    
-//    NSMutableDictionary *parametersMutable = [NSMutableDictionary dictionary];
-//    NSLog(@"请求数据－－－－%@",parameters);
-//    
+- (void)postParameters:(NSDictionary *)parameters url:(NSString *)url withBlock:(void(^)(NSDictionary *dict,NSError *error))block{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSMutableDictionary *parametersMutable = [NSMutableDictionary dictionary];
+    NSLog(@"请求数据－－－－%@",parameters);
+    
 //    NewRSA *new = [[NewRSA alloc]init];
 //    
 //    for (NSString *key in parameters) {
@@ -126,22 +126,22 @@
 //            [parametersMutable setObject:parameters[key] forKey:keyArray[0]];
 //        }
 //    }
-//    
-//    [manager POST:[NSString stringWithFormat:@"%@%@",HTTPServer_1,url] parameters:parametersMutable success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSError *error;
-//        NSDictionary *registerDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
+    
+    [manager POST:[NSString stringWithFormat:@"%@%@",HTTPServer,url] parameters:parametersMutable success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSError *error;
+        NSDictionary *registerDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
+
+        if (block) {
+            block(registerDict,nil);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"url %@  Error: %@",url, error.userInfo);
+        if (block) {
+            block(nil,error);
+        }
+    }];
 //
-//        if (block) {
-//            block(registerDict,nil);
-//        }
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"url %@  Error: %@",url, error.userInfo);
-//        if (block) {
-//            block(nil,error);
-//        }
-//    }];
-//    
 //    //    中断网络请求
 //    //    [manager.operationQueue cancelAllOperations];
 }

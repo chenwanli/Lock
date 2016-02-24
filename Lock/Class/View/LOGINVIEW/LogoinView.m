@@ -30,6 +30,8 @@
     [self addSubview:loginTitle];
     
     UITextField *phoneField = [[UITextField alloc]initWithFrame:CGRectMake(10, loginTitle.totalHeigth + 50, (kDeviceWidth - 20), 40)];
+    phoneField.tag = 100;
+    phoneField.text = @"18389473258";
     phoneField.placeholder = @"手机号码";
     phoneField.textAlignment = 1;
     phoneField.textColor = [UIColor whiteColor];
@@ -39,6 +41,8 @@
     [self addSubview:phoneField];
     
     UITextField *pawField = [[UITextField alloc]initWithFrame:CGRectMake(10, phoneField.totalHeigth + 10, (kDeviceWidth - 20), 40)];
+    pawField.tag = 101;
+    pawField.text = @"123456";
     pawField.placeholder = @"密码";
     pawField.textAlignment = 1;
     pawField.cwlBorder = 0.5;
@@ -79,8 +83,12 @@
 
 - (void)loginBtn{
     NSLog(@"登录");
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    [app home];
+    UITextField *nameField = (UITextField *)[self viewWithTag:100];
+    UITextField *pswField = (UITextField *)[self viewWithTag:101];
+    
+    [NetworkRequest postLogParameters:@{@"user.userName":nameField.text,@"user.userNicName":nameField.text,@"user.password":pswField.text} withBlock:^(NSDictionary *dict, NSError *error) {
+        
+    }];
 }
 
 - (void)buttonClick:(UIButton *)sender{

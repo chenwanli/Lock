@@ -27,6 +27,7 @@
         UITextField *textField = [[UITextField alloc]initWithFrame:CGRectMake(20, 80 + i * 50, (kDeviceWidth - 40), 40)];
         
         textField.placeholder = @[@"昵称",@"请输入密码",@"请再次输入密码"][i];
+        textField.text = @[@"18389473257",@"123456",@"123456"][i];
         textField.backgroundColor = [UIColor whiteColor];
         textField.borderStyle = UITextBorderStyleRoundedRect;
         textField.tag = 100 + i;
@@ -52,7 +53,7 @@
     UITextField *nameField = (UITextField *)[self viewWithTag:100];
     UITextField *pswField = (UITextField *)[self viewWithTag:101];
     
-    [NetworkRequest postRegisteredParameters:@{@"userName":@"18389473257",@"userNicName":nameField.text,@"password":pswField.text} withBlock:^(NSDictionary *dict, NSError *error) {
+    [NetworkRequest postRegisteredParameters:@{@"user.userName":nameField.text,@"user.userNicName":nameField.text,@"user.password":pswField.text} withBlock:^(NSDictionary *dict, NSError *error) {
         
         NSLog(@"－－－－－－%@",dict);
     }];

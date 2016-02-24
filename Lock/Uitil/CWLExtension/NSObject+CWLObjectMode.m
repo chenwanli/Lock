@@ -128,12 +128,16 @@
 //    }
     
     [manager POST:[NSString stringWithFormat:@"%@%@",HTTPServer,url] parameters:parametersMutable success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"POST --> %@, %@", responseObject, [NSThread currentThread]); //自动返回主线程
         NSError *error;
         NSDictionary *registerDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
 
         if (block) {
             block(registerDict,nil);
         }
+        
+        NSString *aString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"-------%@",aString);
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"url %@  Error: %@",url, error.userInfo);
@@ -144,6 +148,33 @@
 //
 //    //    中断网络请求
 //    //    [manager.operationQueue cancelAllOperations];
+}
+
+- (void)getParameters:(NSDictionary *)parameters url:(NSString *)url withBlock:(void(^)(NSDictionary *dict,NSError *error))block{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSLog(@"请求数据－－－－%@",parameters);
+    
+    [manager GET:[NSString stringWithFormat:@"%@%@",HTTPServer,url] parameters:parameters success: ^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"GET --> %@, %@  \n连接数据:%@", responseObject, [NSThread currentThread],operation); //自动返回主线程
+        NSError *error;
+        NSDictionary *registerDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
+        
+        if (block) {
+            block(registerDict,nil);
+        }
+        
+        NSString *aString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+        NSLog(@"-------%@",aString);
+    } failure: ^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", error);
+        NSLog(@"url %@  Error: %@",url, error.userInfo);
+        if (block) {
+            block(nil,error);
+        }
+    }];
 }
 
 

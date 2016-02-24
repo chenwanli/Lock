@@ -31,9 +31,6 @@
     LogoinView *logoinView = [[LogoinView alloc]initWithFrame:self.view.bounds];
     logoinView.onViewController = self;
     [self.view addSubview:logoinView];
-    
+
 }
-
-
-
 @end

@@ -9,7 +9,7 @@
 #ifndef Header_h
 #define Header_h
 
-#define HTTPServer  @"http://103.240.182.236:8080/equitmentMgr/"
+#define HTTPServer  @"http://103.240.182.236:80/equitmentMgr/"
 
 #define kDeviceHeight [UIScreen mainScreen].bounds.size.height// 获取屏幕高度
 #define kDeviceWidth  [UIScreen mainScreen].bounds.size.width// 获取屏幕宽度

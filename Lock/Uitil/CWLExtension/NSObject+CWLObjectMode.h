@@ -26,6 +26,8 @@
  */
 - (void)postParameters:(NSDictionary *)parameters url:(NSString *)url withBlock:(void(^)(NSDictionary *dict,NSError *error))block;
 
+- (void)getParameters:(NSDictionary *)parameters url:(NSString *)url withBlock:(void(^)(NSDictionary *dict,NSError *error))block;
+
 /*
  带图片数据上传
  */
